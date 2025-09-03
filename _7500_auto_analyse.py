@@ -1,6 +1,5 @@
 ﻿import numpy as np
 import re
-import xlwt
 import xlrd
 import tkinter as tk
 from tkinter import N, filedialog
@@ -18,7 +17,7 @@ def choose_xls_doc():
     root.withdraw()
     root.attributes('-topmost', 1)
     excel_path = filedialog.askopenfilename(
-        title="选择qPCR结果表格",
+        title="选择qPCR数据表格",
         filetypes=[("excel", "*.xls"), ("所有文件", "*.*")]
     )
     if not excel_path:
