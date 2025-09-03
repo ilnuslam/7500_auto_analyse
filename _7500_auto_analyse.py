@@ -32,7 +32,6 @@ def get_integer_input(prompt):
         user_input = input(prompt)
         try:
             integer_value = int(user_input)
-            #print(f"您输入的整数是：{integer_value}")
             return integer_value
         except ValueError:
             print("输入无效，请输入一个整数。")
@@ -48,7 +47,7 @@ def get_nonempty_list(nc_num):
         level = np.mean(b_list)
         return level
     else:
-        # 使用numpy.mean()函数计算平均值
+        # nc均值
         level = np.mean(nc_num)
         return level
 
