@@ -86,8 +86,8 @@ def main():
     data = []        # 初始化一个列表来存储D列的数据
         
     # 循环读取C2793到C2888单元格的内容
-    for row in range(2792, 2888):  # 注意行索引从1开始，对应D1到D96
-        cell_value = sheet.cell_value(row, 2)  # 列索引从0开始，D列是第4列，索引为3
+    for row in range(2792, 2888):
+        cell_value = sheet.cell_value(row, 2)
         data.append(cell_value)
 
     v_data = horizontal_to_vertical.check_dict_empty_string_lists(data)
