@@ -19,16 +19,6 @@ def is_all_empty_strings(lst):
     return all(item == "" for item in lst)
 
 def check_dict_empty_string_lists(data):
-    """
-    检查字典中所有值为列表的元素是否仅包含空字符串('')
-    
-    参数:
-        dictionary (dict): 要检查的字典
-        
-    返回:
-        dict: 返回一个新字典，包含原始字典中所有值为列表的键，
-              对应的值为检查结果(True/False)
-    """
  
     dictionary = {f'v{i+1}': data[i::12] for i in range(12)}
 

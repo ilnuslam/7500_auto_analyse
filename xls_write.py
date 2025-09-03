@@ -23,7 +23,7 @@ def modify_existing_excel(file_path, v_num, data_list1, data_list2, data_list3, 
         if sheet.name == 'identifier':
             sheet_num = sheet
     
-    new_sheet = wb.add_sheet('new_sheet_name')
+    new_sheet = wb.add_sheet('auto_analyse')
 
     # 定义高亮样式
     highlight_yellow = xlwt.easyxf('pattern: pattern solid, fore_colour yellow;')
@@ -74,8 +74,9 @@ def modify_existing_excel(file_path, v_num, data_list1, data_list2, data_list3, 
 
     new_sheet.write(14, 1, "MEAN")
     # 保存新文件(可另存为或覆盖原文件)
-    new_file = file_path.replace('.xls', '_modified.xls')
+    new_file = file_path.replace('.xls', '_auto_analyse.xls')
     wb.save(new_file)
+    print("文件已创建")
     return new_file
 
 # 示例使用

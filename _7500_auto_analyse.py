@@ -93,9 +93,9 @@ def main():
 
     v_data = horizontal_to_vertical.check_dict_empty_string_lists(data)
     identify, (r1, c1, r2, c2) = xls_safe_read.read_excel_range(input_source, 0, 1, 1, 8, 12)
-    print(identify)
+    #print(identify)
     v_num = len(identify)
-    print(v_num)
+    #print(v_num)
     sum_identify = sum(identify, [])
     sum_v_data = sum(v_data, [])
 
@@ -111,6 +111,7 @@ def main():
         nc_exc = []
         for i in range(nc_count):
             element = input(f"请输入第{i+1}个阴性对照格号(如A1)：")
+            element = element.strip().upper()
             nc_exc.append(element)
         #根据输入的单元格格式nc_exc转换成列表排序
         letters = [item[0] for item in nc_exc if item[0].isalpha()]
@@ -118,7 +119,7 @@ def main():
         letter_tr = convert_letters_to_numbers(letters)
         result = [8 * (int(y) - 1) + (int(x) - 1) for x, y in zip(letter_tr, numbers)]
         nc_location = result
-        print("阴性对照位置：",nc_location)
+        #print("阴性对照位置：",nc_location)
     
     if result != [100]:
         nc_level = ""
@@ -142,8 +143,8 @@ def main():
         ratio.append(str(cache_ratio))
     #print(ratio)
 
-    print(sum_identify)
-    print(sum_v_data)
+    #print(sum_identify)
+    #print(sum_v_data)
     xls_write.modify_existing_excel(input_source, v_num, sum_identify, sum_v_data, ratio, level, nc_location)
 
 if __name__ == "__main__":
