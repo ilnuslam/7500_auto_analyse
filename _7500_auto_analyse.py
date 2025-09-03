@@ -138,6 +138,8 @@ def main():
 
     ratio = []
     for item in sum_v_data:
+        if item == '':
+            item = 0
         cache_ratio = np.asarray(item, dtype=float) / np.asarray(level, dtype=float)
         ratio.append(str(cache_ratio))
     #print(ratio)

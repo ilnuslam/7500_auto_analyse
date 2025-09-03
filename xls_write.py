@@ -59,7 +59,7 @@ def modify_existing_excel(file_path, v_num, data_list1, data_list2, data_list3, 
             new_sheet.write(15 + i, 2, value, highlight_green)
         elif value >=2:
             new_sheet.write(15 + i, 2, value, highlight_red)
-        else:
+        elif value:
             new_sheet.write(15 + i, 2, value)
 
     new_sheet.write(14, 2, data_list4)
