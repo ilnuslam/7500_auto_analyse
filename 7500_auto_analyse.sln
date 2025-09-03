@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36401.2 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "7500_auto_analyse", "7500_auto_analyse.pyproj", "{4DDE3071-A65F-4F96-9F0D-2FFF60315048}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4DDE3071-A65F-4F96-9F0D-2FFF60315048}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4DDE3071-A65F-4F96-9F0D-2FFF60315048}.Release|Any CPU.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9B3EE923-1001-4B54-A168-003DACB00FD6}
+	EndGlobalSection
+EndGlobal
