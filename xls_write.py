@@ -2,6 +2,7 @@
 import xlrd
 import xlwt
 from xlutils.copy import copy
+import msvcrt
 
 def modify_existing_excel(file_path, v_num, data_list1, data_list2, data_list3, data_list4, data_list5):
 
@@ -69,8 +70,14 @@ def modify_existing_excel(file_path, v_num, data_list1, data_list2, data_list3, 
     new_sheet.write(14, 4, "Note")
     # 保存新文件
     new_file = file_path.replace('.xls', '_auto_analyse.xls')
-    wb.save(new_file)
-    print("文件已创建")
+    #wb.save(new_file)
+    try:
+        wb.save(new_file)
+        print("文件已创建")
+    except Exception as e:
+        print(f"保存失败: {e}")
+    print("按任意键退出...")
+    msvcrt.getch()
     return new_file
 
 
