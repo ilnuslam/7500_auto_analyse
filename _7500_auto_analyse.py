@@ -28,6 +28,7 @@ def choose_xls_doc():
     return excel_path, file_type 
 
 def get_integer_input(prompt):
+    # 检查输入是否为整数
     while True:
         user_input = input(prompt)
         try:
@@ -37,6 +38,7 @@ def get_integer_input(prompt):
             print("输入无效，请输入一个整数。")
 
 def get_nonempty_list(nc_num):
+    # 删除列表中的空字符串元素后计算均值
     if '' in nc_num:
         print("The list is empty, cannot calculate the average.")
         b_list = []

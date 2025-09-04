@@ -1,4 +1,5 @@
 ﻿import xlrd
+import msvcrt
 
 def read_excel_range(file_path, sheet_index=0, start_row=0, start_col=0, end_row=None, end_col=None):
     """
@@ -44,11 +45,15 @@ def read_excel_range(file_path, sheet_index=0, start_row=0, start_col=0, end_row
     
     except Exception as e:
         print(f"错误: {str(e)}")
+        print("请检查是否创建了名为 'identifier' 的工作表，且导入样品编号。")
+        print("按任意键退出...")
+        msvcrt.getch()
         return [], None
 
-# 示例：读取B2到M9区域（行1-8，列1-12）
-'''data, (r1, c1, r2, c2) = read_excel_range("D:\Desktop\副本20250829CHIKV.xls", 0, 1, 1, 8, 12)
-if data:
-    print(f"实际读取: 行{r1+1}-{r2+1} 列{chr(65+c1)}-{chr(65+c2)}")
-    print(data)'''
+def test():
+    # 示例：读取B2到M9区域（行1-8，列1-12）
+    data, (r1, c1, r2, c2) = read_excel_range("D:\Desktop\副本20250829CHIKV.xls", 0, 1, 1, 8, 12)
+    if data:
+        print(f"实际读取: 行{r1+1}-{r2+1} 列{chr(65+c1)}-{chr(65+c2)}")
+        print(data)
 
