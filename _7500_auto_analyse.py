@@ -27,16 +27,6 @@ def choose_xls_doc():
     file_type = os.path.splitext(excel_path)
     return excel_path, file_type 
 
-def get_integer_input(prompt):
-    # 检查输入是否为整数
-    while True:
-        user_input = input(prompt)
-        try:
-            integer_value = int(user_input)
-            return integer_value
-        except ValueError:
-            print("输入无效，请输入一个整数。")
-
 def get_nonempty_list(nc_num):
     # 删除列表中的空字符串元素后计算均值
     if '' in nc_num:
@@ -53,26 +43,17 @@ def get_nonempty_list(nc_num):
         level = np.mean(nc_num)
         return level
 
-def convert_letters_to_numbers(letter_list):
-    letters_to_numbers = {
-    'A': 1,
-    'B': 2,
-    'C': 3,
-    'D': 4,
-    'E': 5,
-    'F': 6,
-    'G': 7,
-    'H': 8
-}
-    return [letters_to_numbers[letter] for letter in letter_list]
-
-def extract_last_one_or_two_digits(s):
-    # 尝试提取末尾的两位数字
-    if len(s) >= 2 and s[-2:].isdigit():
-        return int(s[-2:])
-    # 如果末尾没有两位数字，则提取末尾的一位数字
-    elif len(s) >= 1 and s[-1].isdigit():
-        return int(s[-1])
+def convert_numbers_to_letters(number):
+    if not 0 <= number <= 95:
+        return None
+    
+    # 计算行(1-12)和列(A-H)
+    row = number // 8 + 1
+    column = number % 8
+    
+    # 将列数字转换为大写字母(A=0, B=1,...H=7)
+    if 0 <= column <= 7:
+        return f"{chr(65 + column)}{row}"
     else:
         return None
 
@@ -92,50 +73,24 @@ def main():
         data.append(cell_value)
 
     v_data = horizontal_to_vertical.check_dict_empty_string_lists(data)
-    identify, (r1, c1, r2, c2) = xls_safe_read.read_excel_range(input_source, 0, 1, 1, 8, 12)
-    #print(identify)
+    identify, read_nc_location, (r1, c1, r2, c2) = xls_safe_read.read_excel_range(input_source, 0, 1, 1, 8, 12)
+
+    pr_nc_location = []
+    for i in read_nc_location:
+        pr_nc_location.append(convert_numbers_to_letters(i))
+    print("阴性对照：","、".join(str(item) for item in pr_nc_location))
+
     v_num = len(identify)
     #print(v_num)
     sum_identify = sum(identify, [])
     sum_v_data = sum(v_data, [])
 
-    nc_count = get_integer_input("请输入阴性对照个数：")
-    nc_count = int(nc_count)
+    #从data检索nc对应数值
+    nc_num = [sum_v_data[i] for i in read_nc_location]
 
-    if nc_count == 0:
-        level = input("输入阴性均值：").strip()
-        nc_level = level
-        nc_location = []
-        result = [100]
-    else:
-        nc_exc = []
-        for i in range(nc_count):
-            element = input(f"请输入第{i+1}个阴性对照格号(如A1)：")
-            element = element.strip().upper()
-            nc_exc.append(element)
-        #根据输入的单元格格式nc_exc转换成列表排序
-        letters = [item[0] for item in nc_exc if item[0].isalpha()]
-        numbers = [extract_last_one_or_two_digits(s) for s in nc_exc]
-        letter_tr = convert_letters_to_numbers(letters)
-        result = [8 * (int(y) - 1) + (int(x) - 1) for x, y in zip(letter_tr, numbers)]
-        nc_location = result
-        #print("阴性对照位置：",nc_location)
-    
-    if result != [100]:
-        nc_level = ""
-        #从data检索nc对应数值
-        nc_num = [sum_v_data[i] for i in result]
-
-        v_nc_loc = []
-        for item in nc_location:
-            v_nc_loc.append((item // 12) + 1 + (item % 12) * 8)
-        #print(v_nc_loc)
-
-        #计算均值，返回均值（如果有空字符串则删除后再计算平均值）
-        level = get_nonempty_list(nc_num)
+    #计算均值，返回均值（如果有空字符串则删除后再计算平均值）
+    level = get_nonempty_list(nc_num)
     print("阴性均值：",level)
-
-
 
     ratio = []
     for item in sum_v_data:
@@ -144,10 +99,9 @@ def main():
         cache_ratio = np.asarray(item, dtype=float) / np.asarray(level, dtype=float)
         ratio.append(str(cache_ratio))
     #print(ratio)
-
     #print(sum_identify)
     #print(sum_v_data)
-    xls_write.modify_existing_excel(input_source, v_num, sum_identify, sum_v_data, ratio, level, nc_location)
+    xls_write.modify_existing_excel(input_source, v_num, sum_identify, sum_v_data, ratio, level, read_nc_location)
 
 if __name__ == "__main__":
     main()

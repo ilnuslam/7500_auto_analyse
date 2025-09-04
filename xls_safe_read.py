@@ -30,6 +30,8 @@ def read_excel_range(file_path, sheet_index=0, start_row=0, start_col=0, end_row
         
         # 读取数据
         data = []
+        nc_location = []
+        nc = 0
         for row in range(start_col, max_col + 1):
             row_data = []
             for col in range(start_row, max_row + 1):
@@ -39,16 +41,21 @@ def read_excel_range(file_path, sheet_index=0, start_row=0, start_col=0, end_row
                     row_data.append(sheet.cell_value(r, c))
                 else:
                     row_data.append(sheet.cell_value(col, row))
+                    # 检查背景色
+                    bg_color = workbook.xf_list[sheet.cell(col, row).xf_index].background.background_colour_index
+                    if bg_color != 0x41:
+                        nc_location.append(nc)
+                nc += 1
             data.append(row_data)
         
-        return data, (start_row, start_col, max_row, max_col)
+        return data, nc_location, (start_row, start_col, max_row, max_col)
     
     except Exception as e:
         print(f"错误: {str(e)}")
-        print("请检查是否创建了名为 'identifier' 的工作表，且导入样品编号。")
+        print("请检查是否创建了名为 'identifier' 的工作表，且导入样品编号。\a")
         print("按任意键退出...")
         msvcrt.getch()
-        return [], None
+        return [], [], None
 
 def test():
     # 示例：读取B2到M9区域（行1-8，列1-12）
