@@ -82,15 +82,12 @@ def main():
     level = 'N/A'
 
     if read_nc_location == []:
-
         print("警告：未找到阴性对照，请检查是否高亮标记阴性对照单元格\a")
-
     else:
         pr_nc_location = []
         for i in read_nc_location:
             pr_nc_location.append(convert_numbers_to_letters(i))
         print("阴性对照：","、".join(str(item) for item in pr_nc_location))
-
 
         #从data检索nc对应数值
         nc_num = [sum_v_data[i] for i in read_nc_location]
@@ -112,9 +109,9 @@ def main():
             cache_ratio = np.asarray(item, dtype=float) / np.asarray(level, dtype=float)
         ratio.append(str(cache_ratio))
 
-    print(sum_identify)
-    print(sum_v_data)
-    print(ratio)
+    #print(sum_identify)
+    #print(sum_v_data)
+    #print(ratio)
     
     xls_write.modify_existing_excel(input_source, v_num, sum_identify, sum_v_data, ratio, level, read_nc_location)
 
