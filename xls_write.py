@@ -54,14 +54,21 @@ def modify_existing_excel(file_path, v_num, data_list1, data_list2, data_list3, 
         new_sheet.write(row, 0, chr(cha))
         cha += 1
 
-    data_list3 = np.asarray(data_list3, dtype=float)
-    for i, value in enumerate(data_list3):
-        if value < 2 and value >=1.5:
-            new_sheet.write(15 + i, 2, value, highlight_green)
-        elif value >=2:
-            new_sheet.write(15 + i, 2, value, highlight_red)
-        elif value:
+    if data_list5 != []:
+        data_list3 = np.asarray(data_list3, dtype=float)
+        for i, value in enumerate(data_list3):
+            if value < 2 and value >=1.5:
+                new_sheet.write(15 + i, 2, value, highlight_green)
+            elif value >=2:
+                new_sheet.write(15 + i, 2, value, highlight_red)
+            elif value:
+                new_sheet.write(15 + i, 2, value)
+    elif data_list5 == []:
+        for i, value in enumerate(data_list3):
             new_sheet.write(15 + i, 2, value)
+    else:
+        for i, value in enumerate(data_list3):
+            new_sheet.write(15 + i, 2, "error")
 
     new_sheet.write(14, 2, data_list4)
 
