@@ -75,28 +75,36 @@ def main():
     v_data = horizontal_to_vertical.check_dict_empty_string_lists(data)
     identify, read_nc_location, (r1, c1, r2, c2) = xls_safe_read.read_excel_range(input_source, 0, 1, 1, 8, 12)
 
-    pr_nc_location = []
-    for i in read_nc_location:
-        pr_nc_location.append(convert_numbers_to_letters(i))
-    print("阴性对照：","、".join(str(item) for item in pr_nc_location))
-
     v_num = len(identify)
-    #print(v_num)
     sum_identify = sum(identify, [])
     sum_v_data = sum(v_data, [])
 
-    #从data检索nc对应数值
-    nc_num = [sum_v_data[i] for i in read_nc_location]
+    level = 'N/A'
 
-    #计算均值，返回均值（如果有空字符串则删除后再计算平均值）
-    level = get_nonempty_list(nc_num)
-    print("阴性均值：",level)
+    if read_nc_location == []:
+        print("警告：未找到阴性对照，请检查是否高亮标记阴性对照单元格\a")
+    else:
+        pr_nc_location = []
+        for i in read_nc_location:
+            pr_nc_location.append(convert_numbers_to_letters(i))
+        print("阴性对照：","、".join(str(item) for item in pr_nc_location))
+
+
+        #从data检索nc对应数值
+        nc_num = [sum_v_data[i] for i in read_nc_location]
+
+        #计算均值，返回均值（如果有空字符串则删除后再计算平均值）
+        level = get_nonempty_list(nc_num)
+        print("阴性均值：",level)
 
     ratio = []
     for item in sum_v_data:
         if item == '':
             item = 0
-        cache_ratio = np.asarray(item, dtype=float) / np.asarray(level, dtype=float)
+        if level == 'N/A':
+            cache_ratio = 'N/A'
+        else:
+            cache_ratio = np.asarray(item, dtype=float) / np.asarray(level, dtype=float)
         ratio.append(str(cache_ratio))
     #print(ratio)
     #print(sum_identify)

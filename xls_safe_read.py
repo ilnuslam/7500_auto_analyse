@@ -51,7 +51,7 @@ def read_excel_range(file_path, sheet_index=0, start_row=0, start_col=0, end_row
         return data, nc_location, (start_row, start_col, max_row, max_col)
     
     except Exception as e:
-        print(f"错误: {str(e)}")
+        print(f"读取错误: {str(e)}")
         print("请检查是否创建了名为 'identifier' 的工作表，且导入样品编号。\a")
         print("按任意键退出...")
         msvcrt.getch()
