@@ -117,7 +117,7 @@ def main():
     
     xls_write.modify_existing_excel(input_source, target, v_num, sum_identify, sum_v_data, ratio, level, read_nc_location)
 
-    #sheet_copy_and_delete.copy_sheet_to_position(input_source, target)
+    sheet_copy_and_delete.copy_sheet_to_position(input_source, target)
 
     print("文件已创建")
     print("按任意键退出...")

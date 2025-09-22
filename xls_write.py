@@ -80,6 +80,7 @@ def modify_existing_excel(file_path, target, v_num, data_list1, data_list2, data
     cha = 65
     for row in range(1, 9):
         new_sheet.write(row, 0, chr(cha))
+        new_sheet.write(row + 4, 9, chr(cha))
         cha += 1
 
     # 竖排写入比值

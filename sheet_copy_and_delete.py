@@ -22,7 +22,7 @@ def copy_sheet_to_position(source_file, target, start_row=0, start_col=9):
 
         
         # 复制数据到指定位置
-        for row in range(source_sheet.nrows):
+        for row in range(5):
             for col in range(source_sheet.ncols):
                 target_sheet.write(
                     row + start_row, 
