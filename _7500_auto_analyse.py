@@ -73,7 +73,7 @@ def main():
         data.append(cell_value)
 
     v_data = horizontal_to_vertical.check_dict_empty_string_lists(data)
-    identify, read_nc_location, (r1, c1, r2, c2) = xls_safe_read.read_excel_range(input_source, 0, 1, 1, 8, 12)
+    identify, read_nc_location, target, (r1, c1, r2, c2) = xls_safe_read.read_excel_range(input_source, 0, 5, 1, 12, 12)
 
     v_num = len(identify)
     sum_identify = sum(identify, [])
@@ -113,7 +113,7 @@ def main():
     #print(sum_v_data)
     #print(ratio)
     
-    xls_write.modify_existing_excel(input_source, v_num, sum_identify, sum_v_data, ratio, level, read_nc_location)
+    xls_write.modify_existing_excel(input_source, target, v_num, sum_identify, sum_v_data, ratio, level, read_nc_location)
 
 if __name__ == "__main__":
     main()

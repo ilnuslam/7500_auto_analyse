@@ -1,7 +1,7 @@
 ﻿import xlrd
 import msvcrt
 
-def read_excel_range(file_path, sheet_index=0, start_row=0, start_col=0, end_row=None, end_col=None):
+def read_excel_range(file_path, sheet_index, start_row, start_col, end_row, end_col):
     """
     安全读取Excel数据（自动处理合并单元格和边界）
     :param file_path: Excel文件路径
@@ -35,20 +35,18 @@ def read_excel_range(file_path, sheet_index=0, start_row=0, start_col=0, end_row
         for row in range(start_col, max_col + 1):
             row_data = []
             for col in range(start_row, max_row + 1):
-                if (row, col) in merged_map:
-                    # 如果是合并单元格，读取左上角的值
-                    r, c = merged_map[(col, row)]
-                    row_data.append(sheet.cell_value(r, c))
-                else:
-                    row_data.append(sheet.cell_value(col, row))
-                    # 检查背景色
-                    bg_color = workbook.xf_list[sheet.cell(col, row).xf_index].background.background_colour_index
-                    if bg_color != 0x41:
-                        nc_location.append(nc)
+                row_data.append(sheet.cell_value(col, row))
+                # 检查背景色
+                bg_color = workbook.xf_list[sheet.cell(col, row).xf_index].background.background_colour_index
+                if bg_color != 0x41:
+                    nc_location.append(nc)
                 nc += 1
             data.append(row_data)
         
-        return data, nc_location, (start_row, start_col, max_row, max_col)
+        target = sheet.cell_value(0, 1)
+        print("靶标：", target)
+        print(data)
+        return data, nc_location, target, (start_row, start_col, max_row, max_col)
     
     except Exception as e:
         print(f"读取错误: {str(e)}")

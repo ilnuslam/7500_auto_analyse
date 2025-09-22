@@ -4,19 +4,25 @@ import xlwt
 from xlutils.copy import copy
 import msvcrt
 
-def modify_existing_excel(file_path, v_num, data_list1, data_list2, data_list3, data_list4, data_list5):
+def modify_existing_excel(file_path, target, v_num, data_list1, data_list2, data_list3, data_list4, data_list5):
 
     # 打开现有文件(保留格式)
     rb = xlrd.open_workbook(file_path, formatting_info=True)
     # 创建可写副本
     wb = copy(rb)
-    # 获取工作表
-    for i in range(wb._Workbook__worksheets.__len__()):
-        sheet = wb._Workbook__worksheets[i]
-        if sheet.name == 'identifier':
-            sheet_num = sheet
+    try:
+        # 获取工作表
+        for i in range(wb._Workbook__worksheets.__len__()):
+            sheet = wb._Workbook__worksheets[i]
+            if sheet.name == 'identifier':
+                sheet_num = sheet
     
-    new_sheet = wb.add_sheet('auto_analyse')
+        new_sheet = wb.add_sheet(target)
+    except Exception as e:
+        print(f"错误: {e}")
+        print("按任意键退出...")
+        msvcrt.getch()
+        return
 
     # 定义高亮样式
     highlight_yellow = xlwt.easyxf('pattern: pattern solid, fore_colour yellow;')
