@@ -5,8 +5,10 @@ import tkinter as tk
 from tkinter import N, filedialog
 import sys
 import os
+import msvcrt
 
 import horizontal_to_vertical
+import sheet_copy_and_delete
 import xls_safe_read
 import xls_write
 
@@ -114,6 +116,12 @@ def main():
     #print(ratio)
     
     xls_write.modify_existing_excel(input_source, target, v_num, sum_identify, sum_v_data, ratio, level, read_nc_location)
+
+    #sheet_copy_and_delete.copy_sheet_to_position(input_source, target)
+
+    print("文件已创建")
+    print("按任意键退出...")
+    msvcrt.getch()
 
 if __name__ == "__main__":
     main()

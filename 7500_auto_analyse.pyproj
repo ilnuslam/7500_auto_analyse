@@ -25,6 +25,7 @@
     <Compile Include="xls_safe_read.py" />
     <Compile Include="xls_write.py" />
     <Compile Include="_7500_auto_analyse.py" />
+    <Compile Include="sheet_copy_and_delete.py" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in

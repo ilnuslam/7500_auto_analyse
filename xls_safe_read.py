@@ -45,7 +45,6 @@ def read_excel_range(file_path, sheet_index, start_row, start_col, end_row, end_
         
         target = sheet.cell_value(0, 1)
         print("靶标：", target)
-        print(data)
         return data, nc_location, target, (start_row, start_col, max_row, max_col)
     
     except Exception as e:
