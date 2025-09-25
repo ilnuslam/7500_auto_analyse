@@ -1,7 +1,7 @@
 ﻿import xlrd
 from xlutils.copy import copy
 
-def copy_sheet_to_position(source_file, target, start_row=0, start_col=9):
+def copy_sheet_to_position(source_file, target, start_col, start_row=0):
     """
     将第一个工作表内容复制到指定工作表的指定位置
     :param source_file: Excel文件路径(.xls)
